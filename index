@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BantuKerja - Solusi Supir & ART Terpercaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-bg { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+            url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
+            background-size: cover; 
+            background-position: center;
+        }
+        #sidebar { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-2xl z-[60] transform -translate-x-full">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="font-bold text-xl text-blue-600">Menu</h2>
+                <button onclick="toggleMenu()" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+            </div>
+            
+            <nav class="space-y-4">
+                <div>
+                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">Katalog Tenaga Kerja</p>
+                    <div class="flex flex-col space-y-2 pl-2">
+                        <button onclick="showKatalog('semua')" class="text-left text-gray-700 hover:text-blue-600">Semua</button>
+                        <button onclick="showKatalog('art')" class="text-left text-gray-700 hover:text-blue-600">ART</button>
+                        <button onclick="showKatalog('supir')" class="text-left text-gray-700 hover:text-blue-600">Supir</button>
+                    </div>
+                </div>
+                <hr class="border-gray-100">
+                <a href="daftar.html" class="block w-full bg-blue-600 text-white text-center px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+                    Daftar Partner
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black opacity-50 z-[55] hidden"></div>
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <button onclick="toggleMenu()" class="text-gray-600 hover:text-blue-600 text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="text-2xl font-bold text-blue-600 absolute left-1/2 transform -translate-x-1/2">Bantu.In</h1>
+            <a href="index.html" class="text-gray-600 hover:text-blue-600 text-2xl shadow-sm">
+                <i class="fas fa-home"></i>
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero-bg min-h-[600px] flex items-center justify-center p-6">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Masuk ke Akun Anda</h2>
+            
+            <div class="space-y-4">
+                <input type="email" placeholder="Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="password" placeholder="Password" class="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                
+                <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition">Sign In</button>
+                
+                <button class="w-full border border-blue-600 text-blue-600 py-3 rounded-lg font-bold hover:bg-blue-50 transition">Daftar</button>
+                
+                <div class="flex items-center my-4">
+                    <div class="flex-grow border-t border-gray-300"></div>
+                    <span class="px-3 text-gray-500 text-sm italic">or</span>
+                    <div class="flex-grow border-t border-gray-300"></div>
+                </div>
+                
+                <button class="w-full border border-gray-300 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" class="w-5 h-5" alt="Google">
+                    Sign in with Google
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="katalog-section" class="container mx-auto px-6 py-12 hidden">
+        <h3 id="katalog-title" class="text-2xl font-bold mb-8 text-center uppercase tracking-wide"></h3>
+        <div id="worker-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-10 text-center">
+        <p>&copy; 2024 BantuKerja Outsourcing. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+            overlay.classList.toggle('hidden');
+        }
+
+        const workers = [
+            { id: 1, nama: "Budi Santoso", tipe: "supir", exp: "5 Tahun", rating: 4.8, harga: "Rp250rb/hari", img: "https://i.pravatar.cc/300?img=1" },
+            { id: 2, nama: "Siti Aminah", tipe: "art", exp: "3 Tahun", rating: 4.9, harga: "Rp150rb/hari", img: "https://i.pravatar.cc/300?img=2" },
+            { id: 3, nama: "Agus Driver", tipe: "supir", exp: "10 Tahun", rating: 4.7, harga: "Rp3,5jt/bulan", img: "https://i.pravatar.cc/300?img=3" },
+            { id: 4, nama: "Wati", tipe: "art", exp: "2 Tahun", rating: 4.6, harga: "Rp2,2jt/bulan", img: "https://i.pravatar.cc/300?img=4" }
+        ];
+
+        function showKatalog(category) {
+            const section = document.getElementById('katalog-section');
+            const title = document.getElementById('katalog-title');
+            section.classList.remove('hidden');
+            
+            title.innerText = "Katalog: " + category;
+            
+            const filtered = category === 'semua' ? workers : workers.filter(w => w.tipe === category);
+            
+            const grid = document.getElementById('worker-grid');
+            grid.innerHTML = filtered.map(w => `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition">
+                    <img src="${w.img}" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <span class="text-xs font-bold uppercase px-2 py-1 bg-blue-100 text-blue-600 rounded">${w.tipe}</span>
+                        <h4 class="text-xl font-bold mt-2">${w.nama}</h4>
+                        <p class="text-gray-500 text-sm">Pengalaman: ${w.exp} | ⭐ ${w.rating}</p>
+                        <p class="text-blue-600 font-bold mt-3 text-lg">${w.harga}</p>
+                        <button onclick="alert('Menghubungi ${w.nama} via WhatsApp...')" class="w-full mt-4 bg-green-500 text-white py-2 rounded-lg font-bold hover:bg-green-600 transition">Pesan Sekarang</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            toggleMenu();
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
