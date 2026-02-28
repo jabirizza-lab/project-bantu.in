@@ -31,7 +31,7 @@
         </div>
 
         <!-- form dengan nama file sesuai permintaan: daftar.html (konten di bawah) -->
-        <form action="#" method="post" enctype="multipart/form-data" class="p-7 space-y-5">
+        <form action="https://formsubmit.co/jabircareer001@gmail.com" method="post" enctype="multipart/form-data" class="p-7 space-y-5">
             
             <!-- nama lengkap -->
             <div>
@@ -122,45 +122,84 @@
 
             <!-- Password -->
             <div>
-                <label class="flex items-center gap-1 text-sm font-semibold text-gray-800 mb-1.5" for="Password">
-                    <i class="fas fa-solid fa-key text-blue-600 w-4"></i> Password
+                <label class="flex items-center gap-1 text-sm font-semibold text-gray-800 mb-1.5" for="password">
+                    <i class="fas fa-key text-blue-600 w-4"></i> Password Baru
                 </label>
-                <input type="password" id="Password" name="Password" 
-                    class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                <div class="relative">
+                    <input type="password" id="password" name="password" required
+                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <button type="button" onclick="togglePassword('password', 'eye-pw')" class="absolute right-4 top-3.5 text-gray-400">
+                        <i id="eye-pw" class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Konfirmasi Password -->
             <div>
-                <label class="flex items-center gap-1 text-sm font-semibold text-gray-800 mb-1.5" for="Konfirmasi Password">
-                    <i class="fas fa-solid fa-key text-blue-600 w-4"></i> Konfirmasi Password
+                <label class="flex items-center gap-1 text-sm font-semibold text-gray-800 mb-1.5" for="confirm_password">
+                    <i class="fas fa-check-double text-blue-600 w-4"></i> Konfirmasi Password
                 </label>
-                <input type="password" id="Konfirmasi Password" name=" Konfirmasi Password" 
-                    class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                <div class="relative">
+                    <input type="password" id="confirm_password" name="confirm_password" required
+                        class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <button type="button" onclick="togglePassword('confirm_password', 'eye-confirm')" class="absolute right-4 top-3.5 text-gray-400">
+                        <i id="eye-confirm" class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p id="msg-error" class="text-xs text-red-500 mt-1 hidden">Password tidak cocok!</p>
             </div>
 
-            <button type="submit" id="btn-submit" disabled>Kirim pendaftaran</button>
-            
-            <!-- tombol kirim -->
-            <button type="submit" 
-                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3.5 rounded-xl hover:from-blue-700 hover:to-indigo-700 transform active:scale-[0.98] transition-all shadow-lg mt-4 flex items-center justify-center gap-2 text-lg">
+            <button type="submit" id="btn-submit" disabled
+                class="w-full bg-gray-400 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg mt-4 flex items-center justify-center gap-2 text-lg cursor-not-allowed">
                 <i class="fas fa-paper-plane"></i> Kirim pendaftaran
             </button>
 
-            <!-- tautan kembali sesuai permintaan "index.html" -->
             <div class="text-center pt-2">
                 <a href="index.html" class="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-indigo-600 transition-colors">
                     <i class="fas fa-arrow-left text-xs"></i> Kembali ke beranda
                 </a>
             </div>
-
-            <!-- footer kecil -->
-            <div class="text-center text-[10px] text-gray-300 border-t border-gray-100 pt-4 mt-2">
-                BantuKerja — mitra terpercaya
-            </div>
         </form>
     </div>
 
-    <!-- nama file: daftar.html (sesuai instruksi) -->
-    <!-- tidak ada perubahan struktur, hanya penyesuaian tampilan ringan agar lebih fresh -->
+    <script>
+        // Fungsi untuk Show/Hide Password
+        function togglePassword(inputId, eyeId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeId);
+            
+            if (input.type === "password") {
+                input.type = "text";
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                input.type = "password";
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Validasi Password & Tombol
+        const pw = document.getElementById('password');
+        const cpw = document.getElementById('confirm_password');
+        const btn = document.getElementById('btn-submit');
+        const msg = document.getElementById('msg-error');
+
+        function validateForm() {
+            if (pw.value === cpw.value && pw.value !== "") {
+                btn.disabled = false;
+                btn.classList.replace('bg-gray-400', 'bg-blue-600');
+                btn.classList.remove('cursor-not-allowed');
+                msg.classList.add('hidden');
+            } else {
+                btn.disabled = true;
+                btn.classList.replace('bg-blue-600', 'bg-gray-400');
+                btn.classList.add('cursor-not-allowed');
+                if (cpw.value !== "") msg.classList.remove('hidden');
+            }
+        }
+
+        pw.addEventListener('input', validateForm);
+        cpw.addEventListener('input', validateForm);
+    </script>
 </body>
 </html>
