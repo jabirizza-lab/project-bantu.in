@@ -15,6 +15,7 @@
         }
         #sidebar { transition: transform 0.3s ease-in-out; }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body class="bg-gray-50">
 
@@ -74,12 +75,25 @@
                     <div class="flex-grow border-t border-gray-300"></div>
                 </div>
                 
-                <button class="w-full border border-gray-300 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition">
-                    <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" class="w-5 h-5" alt="Google">
-                    Sign in with Google
-                </button>
-            </div>
-        </div>
+                <div id="g_id_onload"
+                     data-client_id="MASUKKAN_CLIENT_ID_KAMU_DISINI.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+
+                <div class="flex justify-center">
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="350">
+                    </div>
+                </div>
     </header>
 
     <section id="katalog-section" class="container mx-auto px-6 py-12 hidden">
@@ -133,6 +147,12 @@
             
             toggleMenu();
             section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleCredentialResponse(response) {
+            const payload = JSON.parse(atob(response.credential.split('.')[1]));
+            console.log("User Data:", payload);
+            alert("Selamat datang, " + payload.name + "!");
         }
     </script>
 </body>
